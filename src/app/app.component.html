@@ -1,34 +1,42 @@
 <div class="container">
-<div class="main">
-  <input (change)="onFilePicked($event)" class="custom-file-input" placeholder="Upload File" type="file" />
-  <button (click)="onFileUpload()" class="myButton">Upload File</button>
+  <div class="main">
+    <input (change)="onFilePicked($event)" class="custom-file-input" placeholder="Upload File" type="file" />
+    <button (click)="onFileUpload()" class="myButton">Upload File</button>
+    <p *ngIf="errorMsg"> Please Select file</p>
 
-  <p *ngIf="errorMsg"> Please Select file</p>
 
-
-</div>
-<div>
-  <img [src]="img">
-</div>
-<div>
-  <button (click)="onData()" class="myButton">Detacted Label</button>
-  <div *ngIf="data != null">
-    <div *ngFor = "let d of data">
-    <div>{{d.Name}}</div>
-    <div>{{d.Confidence}}</div>
-    <div>{{d.Instances}}</div>
-    <div>{{d.Parents}}</div>
+  </div>
+  <div>
+    <img [src]="img">
+  </div>
+  <div>
+    <button (click)="onData()" class="myButton">Detacted Label</button>
+    <div *ngIf="data != null">
+      <div *ngFor = "let d of data">
+        <div>{{d.Name}}</div>
+        <div>{{d.Confidence}}</div>
+        <div>{{d.Instances}}</div>
+        <div>{{d.Parents}}</div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button (click)="onText()" class="myButton">Detacted Text</button>
+    <div *ngIf="text != null">
+      <div *ngFor = "let t of text">
+        <div *ngIf="t.Type ===  'LINE'">
+          <div>{{t.DetectedText}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <button (click)="onFaces()" class="myButton">Detacted Faces</button>
+    <div *ngIf="faces != null">
+      <div *ngFor = "let f of faces">
+        <div>{{f.BoundingBox}}</div>
+      </div>
     </div>
   </div>
 </div>
-<div>
-  <button (click)="onText()" class="myButton">Detacted Text</button>
-  <div *ngIf="text != null">
-    <div *ngFor = "let t of text">
-      <div *ngIf="t.Type ===  'LINE'">
-    <div>{{t.DetectedText}}</div>
-  </div>
-    </div>
-  </div>
-</div>
-</div>
+

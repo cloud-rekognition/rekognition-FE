@@ -1,0 +1,16 @@
+export interface FacesDetail{
+      BoundingBox: Object,
+      AgeRange: Object,
+      Smile: Object,
+      Eyeglasses: Object,
+      Sunglasses: Object,
+      Gender: Object,
+      Beard: Object,
+      Mustache: Object,
+      EyesOpen: Object,
+      MouthOpen: Object,
+      Emotions: Array<any>,
+      Landmarks: Array<any>,
+      Pose: Object,
+      Quality: Object,
+}

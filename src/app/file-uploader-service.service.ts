@@ -18,5 +18,8 @@ export class FileUploaderServiceService {
   rekognitionText(name: string){
     return this.http.post('http://localhost:5000/api/text', {name:name});
   }
+  detectedFaces(name: string){
+    return this.http.post('http://localhost:5000/api/faces', {name:name});
+  }
 
 }

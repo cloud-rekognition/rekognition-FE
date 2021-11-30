@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FileUploaderServiceService } from './file-uploader-service.service';
 import { Rekognition } from './rekObject';
 import { Text } from './rekText';
+import { FacesDetail } from './DetectedFaces';
 
 @Component({
   selector: 'app-root',
@@ -55,6 +56,13 @@ imgName: string;
     this.fileUploadService.rekognitionText(this.imgName).subscribe(res => {
        this.text = res['data'].TextDetections;
       console.log(res);
+    })
+  }
+  faces: Array<FacesDetail>;
+  onFaces(){
+    if(this.imgName !== null)
+    this.fileUploadService.detectedFaces(this.imgName).subscribe(res => {
+      this.faces =  res['data'].FaceDetails;
     })
   }
 
