@@ -12,6 +12,9 @@ export class FileUploaderServiceService {
   fileUpload(file: FormData) {
     return this.http.post('http://localhost:5000/api/upload', file);
   }
+  filetarget(file: FormData) {
+    return this.http.post('http://localhost:5000/api/uploads3', file);
+  }
   rekognition(name: string){
     return this.http.post('http://localhost:5000/api/data', {name:name});
   }
@@ -21,5 +24,10 @@ export class FileUploaderServiceService {
   detectedFaces(name: string){
     return this.http.post('http://localhost:5000/api/faces', {name:name});
   }
-
+  celebFace(name: string){
+    return this.http.post('http://localhost:5000/api/celeb', {name:name});
+  }
+  compareFace(name: string, img: string){
+    return this.http.post('http://localhost:5000/api/compare', {name:name , img:img});
+  }
 }

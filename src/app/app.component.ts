@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FileUploaderServiceService } from './file-uploader-service.service';
-import { Rekognition } from './rekObject';
-import { Text } from './rekText';
-import { FacesDetail } from './DetectedFaces';
+import { Rekognition } from './models/rekObject';
+import { Text } from './models/rekText';
+import { FacesDetail } from './models/DetectedFaces';
+import { Celeb } from './models/celeb';
 
 @Component({
   selector: 'app-root',
@@ -43,6 +44,34 @@ imgName: string;
       this.imgName = res['file'];
     });
   }
+  fileObjTarget: File;
+  fileUrlTartget: string;
+  imgTarget: string;
+  imTarget: any;
+  onTargetPicked(event: Event): void {
+    this.errorMsg = false
+    console.log(event);
+    const FILE = (event.target as HTMLInputElement).files[0];
+    this.fileObjTarget = FILE;
+   // console.log(this.fileObj);
+   const reader = new FileReader();
+        reader.onload = e => this.imTarget = reader.result;
+
+        reader.readAsDataURL(FILE);
+  }
+  onTargetUpload() {
+    if (!this.fileObjTarget) {
+      this.errorMsg = true
+      return
+    }
+    const fileForm = new FormData();
+    fileForm.append('file', this.fileObjTarget);
+    this.fileUploadService.filetarget(fileForm).subscribe(res => {
+      this.fileUrlTartget = res['image'];
+      console.log(res['file']);
+      this.imgTarget = res['file'];
+    });
+  }
   data: Array<Rekognition>;
   onData(){
     if(this.imgName !== null)
@@ -65,5 +94,22 @@ imgName: string;
       this.faces =  res['data'].FaceDetails;
     })
   }
-
+  celeb: Array<Celeb>;
+  onCeleb(){
+    if(this.imgName !== null)
+    this.fileUploadService.celebFace(this.imgName).subscribe(res => {
+      this.celeb = res['data'].CelebrityFaces;
+      console.log();
+    })
+  }
+  compare: any;
+  match: any;
+  onCompare(){
+    if (this.imgName!== null && this.imgTarget !== null)
+    this.fileUploadService.compareFace(this.imgName, this.imgTarget).subscribe(res => {
+      this.compare = res['data'].FaceMatches;
+       this.match = this.compare.length;
+      console.log(this.compare);
+    })
+  }
 }

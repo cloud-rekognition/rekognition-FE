@@ -7,7 +7,8 @@
 
   </div>
   <div>
-    <img [src]="img">
+    <img [src]="img" height="200" width="200">
+    <div id="boudiry" style="display: block" height="200" width="200"> </div>
   </div>
   <div>
     <button (click)="onData()" class="myButton">Detacted Label</button>
@@ -34,7 +35,46 @@
     <button (click)="onFaces()" class="myButton">Detacted Faces</button>
     <div *ngIf="faces != null">
       <div *ngFor = "let f of faces">
-        <div>{{f.BoundingBox}}</div>
+        <div>{{f.BoundingBox.Height}}</div>
+        <div>{{f.BoundingBox.Width}}</div>
+        <div>{{f.BoundingBox.Top}}</div>
+        <div>{{f.BoundingBox.Left}}</div>
+
+      </div>
+    </div>
+  </div>
+  <div>
+    <button (click)="onCeleb()" class="myButton">Celebrity Faces</button>
+    <div *ngIf="celeb != null">
+      <div *ngFor = "let c of celeb">
+        <div>{{c.Name}}</div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="main">
+      <input (change)="onTargetPicked($event)" class="custom-file-input" placeholder="Upload File Target" type="file" />
+      <button (click)="onTargetUpload()" class="myButton">Upload File Target</button>
+      <p *ngIf="errorMsg"> Please Select file</p>
+
+
+    </div>
+    <div>
+      <img [src]="imTarget">
+    </div>
+    <div>
+      <button (click)="onCompare()" class="myButton">Compare Faces</button>
+      <div *ngIf="compare != null">
+        <div>{{match}}</div>
+        <div *ngFor = "let co of compare">
+          <div>{{co.Face.BoundingBox.Height}}</div>
+          <div>{{co.Face.BoundingBox.Width}}</div>
+          <div>{{co.Face.BoundingBox.Top}}</div>
+          <div>{{co.Face.BoundingBox.Left}}</div>
+
+        </div>
       </div>
     </div>
   </div>
